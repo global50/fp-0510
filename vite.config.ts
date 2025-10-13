@@ -14,6 +14,7 @@ export default defineConfig({
     exclude: ['lucide-react'],
   },
   build: {
+    outDir: 'build',
     minify: 'terser',
     terserOptions: {
       compress: {
