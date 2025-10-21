@@ -1,11 +1,14 @@
+"use client";
+
 import { Home, User, Settings, MessageCircle, Bell, Search, Bookmark, Users } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Link, useLocation } from "react-router-dom"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { useAuthContext } from "@/components/auth-provider"
 
 export function Navigation() {
-  const location = useLocation()
+  const pathname = usePathname()
   const { user, profile, isAuthenticated, loading } = useAuthContext()
 
   // Determine profile path based on authentication status
@@ -52,15 +55,15 @@ export function Navigation() {
             {navigationItems.map((item) => (
               <Button
                 key={item.label}
-                variant={location.pathname === item.path ? "default" : "ghost"}
+                variant={pathname === item.path ? "default" : "ghost"}
                 className={`w-full justify-start h-12 px-4 ${
-                  location.pathname === item.path
+                  pathname === item.path
                     ? "bg-blue-500 hover:bg-blue-600 text-white" 
                     : "hover:bg-accent/50 transition-colors"
                 }`}
                 asChild
               >
-                <Link to={item.path}>
+                <Link href={item.path}>
                   <item.icon className="h-5 w-5 mr-3" />
                   <span className="text-base">{item.label}</span>
                 </Link>
@@ -104,7 +107,7 @@ export function Navigation() {
                     Not signed in
                   </p>
                   <p className="text-xs text-muted-foreground">
-                    <Link to="/auth" className="text-blue-500 hover:underline">
+                    <Link href="/auth" className="text-blue-500 hover:underline">
                       Sign in
                     </Link>
                   </p>
@@ -117,7 +120,7 @@ export function Navigation() {
         {/* Version Display */}
         <div className="px-4 pb-4">
           <p className="text-xs text-muted-foreground text-center">
-            v{(window as any).APP_VERSION || '1.0.0'}
+            v{(typeof window !== 'undefined' ? window : { APP_VERSION: '1.0.0' } as any).APP_VERSION}
           </p>
         </div>
       </div>

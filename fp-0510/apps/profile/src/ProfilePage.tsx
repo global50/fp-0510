@@ -1,3 +1,5 @@
+"use client";
+
 import { HeroSection } from "./components/hero-section"
 import { PostsSection } from "./components/posts-section"
 import { InformationSection } from "./components/information-section"
@@ -6,7 +8,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { useProfileData } from "./hooks/use-profile-data"
 import { useLocationData } from "./hooks/useLocationData"
-import { useNavigate } from "react-router-dom"
+import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useToast } from "@/hooks/use-toast"
 import { useAuthContext } from "@/components/auth-provider"
@@ -18,7 +20,7 @@ interface ProfilePageProps {
 export function ProfilePage({ username }: ProfilePageProps) {
   const { user, isLoading, error, isOwnProfile, requestedUsername, redirectPath, refetchProfile } = useProfileData()
   const { session } = useAuthContext()
-  const navigate = useNavigate()
+  const router = useRouter()
   const { toast } = useToast()
   const [isEditing, setIsEditing] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
@@ -51,9 +53,9 @@ export function ProfilePage({ username }: ProfilePageProps) {
   // Handle redirection when user visits /profile
   useEffect(() => {
     if (redirectPath) {
-      navigate(redirectPath, { replace: true })
+      router.replace(redirectPath)
     }
-  }, [redirectPath, navigate])
+  }, [redirectPath, router])
 
   const handleEditToggle = () => {
     setIsEditing(!isEditing)

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { AuthState, AuthStatusResponse } from '../types/auth';
 
@@ -14,7 +14,7 @@ export function useTelegramAuth(): UseTelegramAuthReturn {
   const [isLoading, setIsLoading] = useState(true);
   const [telegramUrl, setTelegramUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate();
+  const router = useRouter();
   
   const stateRef = useRef<string | null>(null);
   const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -45,7 +45,7 @@ export function useTelegramAuth(): UseTelegramAuthReturn {
   };
 
   const redirectToHome = () => {
-    navigate('/');
+    router.push('/');
   };
 
   const deleteAuthState = async () => {

@@ -1,7 +1,5 @@
-export default function AuthPage() {
-  return (
-    <div>
-      <h1>Auth Page</h1>
-    </div>
-  );
+import { AuthPage } from "@/../apps/auth/src/AuthPage";
+
+export default function Auth() {
+  return <AuthPage />;
 }

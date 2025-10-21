@@ -1,6 +1,9 @@
+"use client";
+
 import { Home, User, MessageSquare, Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Link, useLocation } from "react-router-dom"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { useAuthContext } from "@/components/auth-provider"
 import {
@@ -12,7 +15,7 @@ import {
 } from "@/components/ui/sheet"
 
 export function MobileNav() {
-  const location = useLocation()
+  const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const { isAuthenticated, profile } = useAuthContext()
 
@@ -68,16 +71,16 @@ export function MobileNav() {
                 {allNavigationItems.map((item) => (
                   <Button
                     key={item.label}
-                    variant={location.pathname === item.path ? "default" : "ghost"}
+                    variant={pathname === item.path ? "default" : "ghost"}
                     className={`w-full justify-start h-12 px-4 ${
-                      location.pathname === item.path
+                      pathname === item.path
                         ? "bg-blue-500 hover:bg-blue-600 text-white" 
                         : "hover:bg-accent/50 transition-colors"
                     }`}
                     asChild
                     onClick={() => setIsOpen(false)}
                   >
-                    <Link to={item.path}>
+                    <Link href={item.path}>
                       <item.icon className="h-5 w-5 mr-3" />
                       <span className="text-base">{item.label}</span>
                     </Link>
@@ -92,11 +95,11 @@ export function MobileNav() {
             variant="ghost"
             size="sm"
             className={`flex flex-col items-center justify-center h-12 w-12 p-1 ${
-              location.pathname === "/" ? "text-blue-500" : ""
+              pathname === "/" ? "text-blue-500" : ""
             }`}
             asChild
           >
-            <Link to="/">
+            <Link href="/">
               <Home className="h-5 w-5" />
               <span className="text-xs mt-1">Home</span>
             </Link>
@@ -107,11 +110,11 @@ export function MobileNav() {
             variant="ghost"
             size="sm"
             className={`flex flex-col items-center justify-center h-12 w-12 p-1 ${
-              location.pathname === getProfilePath() ? "text-blue-500" : ""
+              pathname === getProfilePath() ? "text-blue-500" : ""
             }`}
             asChild
           >
-            <Link to={getProfilePath()}>
+            <Link href={getProfilePath()}>
               <User className="h-5 w-5" />
               <span className="text-xs mt-1">Profile</span>
             </Link>
@@ -122,12 +125,12 @@ export function MobileNav() {
   variant="ghost"
   size="sm"
   className={`flex flex-col items-center justify-center h-12 w-12 p-1 ${
-    location.pathname === "/chats" ? "text-blue-500" : ""
+    pathname === "/chats" ? "text-blue-500" : ""
   }`}
   asChild
   onClick={() => setIsOpen(false)}
 >
-  <Link to="/chats">
+  <Link href="/chats">
     <MessageSquare className="h-5 w-5" />
     <span className="text-xs mt-1">Messages</span>
   </Link>

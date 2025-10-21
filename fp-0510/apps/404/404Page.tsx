@@ -1,10 +1,13 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Home, Search, ArrowLeft } from "lucide-react"
-import { Link, useNavigate } from "react-router-dom"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 export function NotFoundPage() {
-  const navigate = useNavigate()
+  const router = useRouter()
 
   return (
     <div className="h-full w-full overflow-y-auto">
@@ -28,7 +31,7 @@ export function NotFoundPage() {
                   className="flex-1 bg-blue-500 hover:bg-blue-600 text-white"
                   asChild
                 >
-                  <Link to="/">
+                  <Link href="/">
                     <Home className="h-4 w-4 mr-2" />
                     Go Home
                   </Link>
@@ -36,7 +39,7 @@ export function NotFoundPage() {
                 <Button 
                   variant="outline" 
                   className="flex-1"
-                  onClick={() => navigate(-1)}
+                  onClick={() => router.back()}
                 >
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Go Back
