@@ -1,7 +1,5 @@
-export default function HomePage() {
-  return (
-    <div>
-      <h1>Home Page</h1>
-    </div>
-  );
+import { HomePage } from "../../../apps/home/HomePage"
+
+export default function Home() {
+  return <HomePage />
 }

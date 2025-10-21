@@ -1,5 +1,5 @@
 import { Mail, Phone, MessageCircle, Globe, Github, Linkedin, Twitter, Link as LinkIcon } from "lucide-react"
-// import type { Video } from "lucide-react"
+// import { Video as LucideIcon } from "lucide-react"
 import { ContactInfoEntry } from "@/types/profile"
 
 export interface ContactTypeConfig {

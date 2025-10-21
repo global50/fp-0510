@@ -100,7 +100,7 @@ export function ProfilePage({ username }: ProfilePageProps) {
       console.log('🔑 [Profile Save] Has access token:', !!session.access_token)
       console.log('👤 [Profile Save] User ID:', session.user?.id)
 
-      const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/update-profile`
+      const apiUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/update-profile`
       console.log('🌐 [Profile Save] Step 3: API endpoint:', apiUrl)
 
       const payload = {
@@ -147,7 +147,7 @@ export function ProfilePage({ username }: ProfilePageProps) {
 
       if (hasLocationChanges) {
         console.log('📍 [Profile Save] Step 8: Saving location data')
-        const locationApiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/update-profile-locations`
+        const locationApiUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/update-profile-locations`
         const locationPayload = {
           profile_id: result.profile.id,
           locations: getAllLocations()

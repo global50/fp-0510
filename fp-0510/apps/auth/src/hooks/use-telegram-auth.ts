@@ -53,11 +53,11 @@ export function useTelegramAuth(): UseTelegramAuthReturn {
     
     try {
       await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/delete-auth-state`,
+        `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/delete-auth-state`,
         {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ state: stateRef.current })
@@ -86,11 +86,11 @@ export function useTelegramAuth(): UseTelegramAuthReturn {
 
       // Generate auth state
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-auth-state`,
+        `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/generate-auth-state`,
         {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ initiatingHostOrigin })
@@ -142,10 +142,10 @@ export function useTelegramAuth(): UseTelegramAuthReturn {
 
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/get-auth-session?state=${stateRef.current}`,
+          `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/get-auth-session?state=${stateRef.current}`,
           {
             headers: {
-              'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+              'Authorization': `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
             },
           }
         );

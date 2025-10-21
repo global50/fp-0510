@@ -164,7 +164,7 @@ export function useSettingsData(session: Session | null) {
       console.log('🔍 [Settings] User authenticated, calling Edge Function...')
       
       // Call edge function to fetch settings
-      const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/settings`
+      const apiUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/settings`
       console.log('🔍 [Settings] API URL:', apiUrl)
       console.log('🔍 [Settings] Access token (first 20 chars):', session.access_token?.substring(0, 20) + '...')
       
@@ -249,7 +249,7 @@ export function useSettingsData(session: Session | null) {
       }
 
       // Call edge function to update settings
-      const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/settings`
+      const apiUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/settings`
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
@@ -275,7 +275,7 @@ export function useSettingsData(session: Session | null) {
       throw error
     } finally {
       // Re-fetch settings from database to reset to last saved state
-      await fetchUserSettings()
+      await fetchUserSettings(session)
       setSettingsState(prev => ({
         ...prev,
         hasUnsavedChanges: false
@@ -285,7 +285,7 @@ export function useSettingsData(session: Session | null) {
 
   const resetChanges = async () => {
     // Re-fetch settings from database to reset to last saved state
-    await fetchUserSettings()
+    await fetchUserSettings(session)
     setSettingsState(prev => ({
       ...prev,
       hasUnsavedChanges: false
